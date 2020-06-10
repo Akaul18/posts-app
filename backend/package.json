@@ -1,0 +1,14 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "dev": "nodemon index.js"
+    },
+    "dependencies": {
+        "apollo-server": "^2.14.3",
+        "graphql": "^15.1.0",
+        "mongoose": "^5.9.18"
+    }
+}
