@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { ApolloServer } = require('apollo-server')
 const mongoose = require('mongoose')
 
@@ -10,7 +12,7 @@ const server = new ApolloServer({
 })
 
 mongoose
-    .connect('mongodb://localhost:27017', {
+    .connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
@@ -18,5 +20,8 @@ mongoose
         return server.listen({ port: 5000 })
     })
     .then((result) => {
-        console.log(`🚀 Server ready at ${result.url}`)
+        console.log(
+            'connected to mongodb \n',
+            `🚀 Server ready at ${result.url}`
+        )
     })
