@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Form, Button } from 'semantic-ui-react'
 import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 import { useForm } from '../util/hooks'
+import { AuthContext } from '../context/auth'
 
 const Login = (props) => {
+    const context = useContext(AuthContext)
     const [errors, setErrors] = useState({})
 
     const initialState = {
@@ -19,7 +21,9 @@ const Login = (props) => {
     )
 
     const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-        update(proxy, result) {
+        // update(proxy, result) {
+        update(proxy, { data: { login: userData } }) {
+            context.login(userData)
             props.history.push('/')
         }, //its a callback function if mutation runs perfectly..can name it anything
         onError(err) {
