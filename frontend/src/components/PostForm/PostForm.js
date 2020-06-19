@@ -16,23 +16,23 @@ const PostForm = () => {
         variables: values,
 
         update(proxy, results) {
-            try {
-                const data = proxy.readQuery({
-                    query: FETCH_POSTS_QUERY,
-                })
+            // try {
+            const data = proxy.readQuery({
+                query: FETCH_POSTS_QUERY,
+            })
 
-                // data.getPosts = [results.data.createPost, ...data.getPosts]
-                proxy.writeQuery({
-                    query: FETCH_POSTS_QUERY,
-                    variables: values,
-                    data: {
-                        getPosts: [results.data.createPost, ...data.getPosts],
-                    },
-                })
-                values.body = ''
-            } catch (err) {
-                console.log(err)
-            }
+            // data.getPosts = [results.data.createPost, ...data.getPosts]
+            proxy.writeQuery({
+                query: FETCH_POSTS_QUERY,
+                variables: values,
+                data: {
+                    getPosts: [results.data.createPost, ...data.getPosts],
+                },
+            })
+            values.body = ''
+            // } catch (err) {
+            // console.log(err)
+            // }
         },
     })
 
@@ -40,20 +40,33 @@ const PostForm = () => {
         createPost()
     }
     return (
-        <Form onSubmit={onSubmit}>
-            <h2>Create a post:</h2>
-            <Form.Field>
-                <Form.Input
-                    placeholder="Hi World"
-                    name="body"
-                    onChange={onChange}
-                    values={values.body}
-                />
-                <Button type="submit" color="teal">
-                    Submit
-                </Button>
-            </Form.Field>
-        </Form>
+        <React.Fragment>
+            <Form onSubmit={onSubmit}>
+                <h2>Create a post:</h2>
+                <Form.Field>
+                    <Form.Input
+                        placeholder="Hi World"
+                        name="body"
+                        onChange={onChange}
+                        values={values.body}
+                        error={error ? true : false}
+                    />
+                    <Button type="submit" color="teal">
+                        Submit
+                    </Button>
+                </Form.Field>
+            </Form>
+            {error && (
+                <div
+                    className="ui error message"
+                    style={{ marginBottom: '20px' }}
+                >
+                    <ul className="list">
+                        <li>{error.graphQLErrors[0].path[0]}</li>
+                    </ul>
+                </div>
+            )}
+        </React.Fragment>
     )
 }
 
