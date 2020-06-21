@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef } from 'react'
 import gql from 'graphql-tag'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { Card, Form } from 'semantic-ui-react'
+import { Card, Form, Popup } from 'semantic-ui-react'
 import moment from 'moment'
 import { Grid, Image, Label, Button, Icon } from 'semantic-ui-react'
 
@@ -77,20 +77,30 @@ const SinglePost = (props) => {
                                     user={user}
                                     post={{ id, likeCount, likes }}
                                 />
-                                <Button
-                                    as="div"
-                                    // labelPostion="right"
-                                    onClick={() =>
-                                        console.log('comment on post')
+                                <Popup
+                                    content="Comment on Post"
+                                    inverted
+                                    trigger={
+                                        <Button
+                                            as="div"
+                                            labelPosition="right"
+                                            onClick={() =>
+                                                console.log('comment on post')
+                                            }
+                                        >
+                                            <Button basic color="blue">
+                                                <Icon name="comments" />
+                                            </Button>
+                                            <Label
+                                                basic
+                                                color="blue"
+                                                pointing="left"
+                                            >
+                                                {commentCount}
+                                            </Label>
+                                        </Button>
                                     }
-                                >
-                                    <Button basic color="blue">
-                                        <Icon name="comment" />
-                                    </Button>
-                                    <Label basic color="blue" pointing="left">
-                                        {commentCount}
-                                    </Label>
-                                </Button>
+                                />
                                 {user && user.username === username && (
                                     <DeleteButton
                                         postId={id}
