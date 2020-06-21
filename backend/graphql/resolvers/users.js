@@ -1,9 +1,10 @@
-require('dotenv').config()
+// require('dotenv').config()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const { UserInputError } = require('apollo-server')
 const User = require('../../models/User')
+const { TOKEN_SECRET } = require('../../util/config')
 const {
     validateRegisterInput,
     validateLoginInput,
@@ -16,7 +17,7 @@ const generateToken = (user) => {
             email: user.email,
             username: user.username,
         },
-        process.env.TOKEN_SECRET,
+        TOKEN_SECRET,
         { expiresIn: '1h' }
     )
 }
