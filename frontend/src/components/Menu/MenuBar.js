@@ -20,8 +20,8 @@ const MenuBar = () => {
                     <Menu.Item
                         name="logout"
                         onClick={logout}
-                        // as={Link}
-                        // to="/login"
+                        as={Link}
+                        to="/login"
                     />
                 </Menu.Menu>
             </Menu>
