@@ -7,7 +7,8 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import { setContext } from 'apollo-link-context'
 
 const httpLink = createHttpLink({
-    uri: 'http://localhost:5000',
+    // uri: 'http://localhost:5000',
+    uri: 'http://10.0.0.166:5000',
 })
 
 const authLink = setContext((req, prevContext) => {

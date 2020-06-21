@@ -9,6 +9,7 @@ import Register from './pages/Register'
 import MenuBar from './components/Menu/MenuBar'
 import { AuthProvider } from './context/auth'
 import AuthRoute from './util/AuthRoute'
+import SinglePost from './pages/SinglePost'
 
 function App() {
     // const context = useContext(AuthContext)
@@ -17,10 +18,10 @@ function App() {
             <Router>
                 <div className="ui container">
                     <MenuBar />
-                    {/* {!context.user && <Redirect from="/" to="login" exact />} */}
                     <Route exact path="/" component={Home} />
                     <AuthRoute path="/login" component={Login} />
                     <AuthRoute path="/register" component={Register} />
+                    <Route path="/posts/:postId" component={SinglePost} />
                 </div>
             </Router>
         </AuthProvider>
